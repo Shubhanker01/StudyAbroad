@@ -1,9 +1,11 @@
 ﻿const express = require("express");
 
 const { listPrograms } = require("../controllers/programController");
+const { validate } = require("../middleware/validate");
+const { listProgramsQuerySchema } = require("../schemas/programSchema");
 
 const router = express.Router();
 
-router.get("/", listPrograms);
+router.get("/", validate(listProgramsQuerySchema), listPrograms);
 
 module.exports = router;

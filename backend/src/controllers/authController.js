@@ -39,17 +39,24 @@ const login = asyncHandler(async (req, res) => {
   }
   let comparedPassword = await user.comparePassword(password);
   if (comparedPassword) {
-    return res.status(200).json(new apiResponse(200, "User logged in successfully", { id: user._id, email: user.email }));
+    const accessToken = user.generateAuthToken();
+    if (!accessToken) {
+      throw new HttpError(500, starterMessage("Some error occured in the server"));
+    }
+    const options = {
+      httpOnly: true,
+      secure: true,
+      sameSite: 'none'
+    }
+    return res.status(200).cookie('accessToken', accessToken, options).json(new apiResponse(200, "User logged in successfully", { id: user._id, email: user.email }));
   }
 
   throw new HttpError(400, starterMessage("Bad Request"));
 });
 
 const me = asyncHandler(async (req, res) => {
-  throw new HttpError(
-    501,
-    starterMessage("Fetching the authenticated user profile")
-  );
+  return res.status(200).json(new apiResponse(200, req.user, "User details fetched successfully"))
+
 });
 
 module.exports = {

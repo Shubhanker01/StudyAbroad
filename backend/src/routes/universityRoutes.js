@@ -1,5 +1,6 @@
 ﻿const express = require("express");
-
+const { validate } = require("../middleware/validate");
+const { listUniversitiesQuerySchema } = require('../schemas/universitySchema');
 const {
   listPopularUniversities,
   listUniversities,
@@ -7,7 +8,7 @@ const {
 
 const router = express.Router();
 
-router.get("/", listUniversities);
+router.get("/", validate(listUniversitiesQuerySchema), listUniversities);
 router.get("/popular", listPopularUniversities);
 
 module.exports = router;

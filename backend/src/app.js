@@ -1,6 +1,7 @@
 ﻿const cors = require("cors");
 const express = require("express");
 const morgan = require("morgan");
+const dotenv = require('dotenv').config()
 
 const applicationRoutes = require("./routes/applicationRoutes");
 const authRoutes = require("./routes/authRoutes");
@@ -11,10 +12,12 @@ const recommendationRoutes = require("./routes/recommendationRoutes");
 const universityRoutes = require("./routes/universityRoutes");
 const errorHandler = require("./middleware/errorHandler");
 const notFound = require("./middleware/notFound");
+const cookieParser = require('cookie-parser');
 
 const app = express();
 
 app.use(cors());
+app.use(cookieParser());
 app.use(express.json());
 app.use(morgan("dev"));
 

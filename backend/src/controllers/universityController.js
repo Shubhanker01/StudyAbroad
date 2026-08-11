@@ -1,5 +1,5 @@
 ﻿const University = require("../models/University");
-const cacheService = require("../services/cacheService");
+const CacheService = require("../services/cacheService");
 const asyncHandler = require("../utils/asyncHandler");
 
 function parseBoolean(value) {
@@ -75,8 +75,7 @@ const listUniversities = asyncHandler(async (req, res) => {
 
 const listPopularUniversities = asyncHandler(async (req, res) => {
   const cacheKey = "popular-universities";
-  const cachedPayload = cacheService.get(cacheKey);
-
+  const cachedPayload = await CacheService.get(cacheKey);
   if (cachedPayload) {
     return res.json({
       success: true,
@@ -88,11 +87,11 @@ const listPopularUniversities = asyncHandler(async (req, res) => {
   }
 
   const universities = await University.find()
-    .sort({ popularScore: -1, qsRanking: 1 })
+    .sort({ popularScore: 1, qsRanking: 1 })
     .limit(6)
     .lean();
 
-  cacheService.set(cacheKey, universities);
+  CacheService.set(cacheKey, universities);
 
   res.json({
     success: true,
