@@ -26,7 +26,7 @@ const register = asyncHandler(async (req, res) => {
     englishTest
   });
   if (newUser) {
-    return res.status(201).json(new apiResponse(201, "User registered successfully", { id: newUser._id, email: newUser.email }));
+    return res.status(201).json(new apiResponse(201, { id: newUser._id, email: newUser.email }, "User Registered Successfully!!"));
   }
   throw new HttpError(501, starterMessage("Some error occurred while registering the user"));
 });
@@ -48,7 +48,7 @@ const login = asyncHandler(async (req, res) => {
       secure: true,
       sameSite: 'none'
     }
-    return res.status(200).cookie('accessToken', accessToken, options).json(new apiResponse(200, "User logged in successfully", { id: user._id, email: user.email }));
+    return res.status(200).cookie('accessToken', accessToken, options).json(new apiResponse(200, { id: user._id, email: user.email }, "User logged In successfully!!!"));
   }
 
   throw new HttpError(400, starterMessage("Bad Request"));

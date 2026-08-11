@@ -1,6 +1,10 @@
-﻿
+﻿import { ToastContainer } from 'react-toastify'
+import AppRouter from './router/AppRouter'
 export default function App() {
   return (
-    <h1 className="text-4xl">Hello World</h1>
+    <>
+      <ToastContainer position='top-center' theme='dark' autoClose={5000} closeButton={true} />
+      <AppRouter />
+    </>
   );
 }
