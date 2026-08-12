@@ -1,178 +1,72 @@
-﻿# Waygood Study Abroad Candidate Evaluation Starter
+# StudyAbroadHQ - Study Abroad Management System
 
-This repository is a starter assignment for backend-focused MERN candidates interviewing with Waygood.
+A full-stack web application designed to simplify international education applications, offer AI-powered program recommendations, and track application lifecycles in real time.
 
-Waygood's public website positions the business around helping students discover universities, compare options, plan budgets, and navigate their study-abroad journey with AI-assisted tools and partner networks. This starter mirrors that business context by focusing on student discovery, recommendation, and application tracking.
+---
 
-## Business Scenario
+## 🚀 Features Added
 
-You are joining the engineering team working on a study-abroad platform for students and counselors.
+* **Gemini AI Recommendation System**: Enhanced the pre-existing program recommendation API with Google Gemini AI to analyze candidate profile matches and generate personalized fit summaries and top picks.
+* **Zod Input Validation**: Robust request body and parameter validation for API endpoints to ensure strict data sanitization and type safety.
+* **Redis Caching**: Implemented Redis cache layer to store frequent analytical queries (such as dashboard metrics) for near-instant response times.
+* **Express Rate Limiting**: Added `express-rate-limit` middleware across APIs to prevent brute-force attacks and control API resource consumption.
+* **Modified & Enhanced APIs**: Optimized existing backend endpoints for smooth integration with frontend views and real-time dashboard aggregation.
+* **Interactive Frontend Authentication & Dashboard**: Built dynamic landing, login, registration, and student dashboard views using React, Tailwind CSS, and Shadcn UI components.
+* **Test Cases**: Two test cases added for Authentication endpoints.
 
-The product already has:
+---
 
-- a basic university and program catalog
-- seeded sample data for students, universities, programs, and applications
-- a minimal React dashboard shell
-- starter backend architecture with Express, Mongoose, controllers, services, and middleware
+## 🛠️ Setup Instructions
 
-The product is still missing critical engineering work needed for a real candidate-ready release.
+### Prerequisites
+* **Node.js**: `v18.x` or higher
+* **MongoDB**: Local or Atlas instance
+* **Redis**: Local server or Redis Cloud instance
 
-## Your Assignment
-
-Build on top of this starter and complete the platform features below.
-
-### Required Tasks
-
-1. Implement secure authentication
-
-- Complete `POST /api/auth/register`
-- Complete `POST /api/auth/login`
-- Add a protected `GET /api/auth/me`
-- Use JWT-based authentication
-- Store passwords securely using hashing
-- Support roles for `student` and `counselor`
-
-2. Complete advanced university and program discovery
-
-- Extend `GET /api/universities` and `GET /api/programs`
-- Add filtering by country, intake, degree level, budget, scholarship availability, and search term
-- Add pagination metadata and sorting options
-- Make the response format consistent and frontend-friendly
-
-3. Build a recommendation engine using MongoDB aggregation
-
-- Improve `GET /api/recommendations/:studentId`
-- Use MongoDB aggregation to recommend relevant programs for a student
-- Consider preferred countries, budget, field of interest, intake, and IELTS score
-- Return top matches with a short explanation of why each result matched
-
-4. Implement the application workflow
-
-- Complete `POST /api/applications`
-- Complete `PATCH /api/applications/:id/status`
-- Prevent duplicate applications for the same student, program, and intake
-- Enforce valid status transitions
-- Record a timeline/history entry when status changes
-
-5. Add caching and performance improvements
-
-- Cache `GET /api/universities/popular` and/or dashboard summary responses
-- You may use Redis or improve the provided in-memory cache
-- Add or document MongoDB indexes that improve the most important queries
-- Keep performance tradeoffs clear in code comments or README notes
-
-6. Add testing and developer documentation
-
-- Add tests for at least 2 important API flows
-- Include at least 1 edge-case test
-- Update this README with any assumptions, setup steps, and architecture notes needed to review your submission
-
-### Bonus Tasks
-
-- Integrate an AI endpoint for study-plan suggestions, SOP helper prompts, or shortlist summaries
-- Dockerize the backend and database setup
-- Improve the React dashboard to consume your new APIs cleanly
-- Add rate limiting, request logging, or role-based access improvements
-
-## What We Will Evaluate
-
-- Backend architecture and code organization
-- API design, validation, and error handling
-- MongoDB query quality, aggregation usage, and indexing awareness
-- Performance thinking, including caching and response design
-- Code readability, maintainability, and naming
-- Testing depth and practical engineering judgment
-- How well your solution reflects a real study-abroad product workflow
-
-## Suggested Timebox
-
-A strong submission can usually be completed in 6-8 focused hours. We care more about thoughtful engineering tradeoffs than feature volume.
-
-## Suggested Submission Expectations
-
-- Keep the solution realistic and production-minded
-- Favor clean, explainable code over unnecessary complexity
-- If you make assumptions, document them
-- If you skip a bonus feature, that is okay
-- Share your repository, setup instructions, and any sample credentials or environment notes needed to review
-
-## Starter Project Structure
-
-```text
-.
-|-- backend
-|   |-- src
-|   |   |-- config
-|   |   |-- controllers
-|   |   |-- data
-|   |   |-- middleware
-|   |   |-- models
-|   |   |-- routes
-|   |   |-- scripts
-|   |   |-- services
-|   |   `-- utils
-|-- frontend
-|   `-- src
-`-- docs
-```
-
-## Getting Started
-
-### 1. Backend setup
-
+### 1. Backend Setup
 ```bash
+# Navigate to backend directory
 cd backend
+
+# Install dependencies
 npm install
-copy .env.example .env
-npm run seed
+
+# Start the development server
 npm run dev
-```
 
-### 2. Frontend setup
-
+### 2. Frontend Setup
 ```bash
+# open a new terminal
+# Navigate to frontend directory
 cd frontend
+
+# Install dependencies
 npm install
+
+# Start the development server
 npm run dev
-```
 
-On macOS or Linux, use `cp .env.example .env` instead of `copy`.
+## Screenshots
+<img width="1366" height="768" alt="Screenshot (218)" src="https://github.com/user-attachments/assets/b0c272fa-4343-472c-88aa-63eb2efd7a9a" />
+<img width="1366" height="768" alt="Screenshot (217)" src="https://github.com/user-attachments/assets/7180a31d-eda9-4d74-b320-6ad9c027490d" />
+<img width="1366" height="768" alt="Screenshot (216)" src="https://github.com/user-attachments/assets/670d09b9-a934-4978-aa9e-2e227073ee11" />
+<img width="1366" height="768" alt="Screenshot (215)" src="https://github.com/user-attachments/assets/f187eb6c-af68-4913-b3ec-955f38a59c5c" />
 
-## Environment Variables
+## Environment Configuration
+PORT=5000
+MONGODB_URL=mongodb://localhost:27017/studyabroad
+JWT_SECRET=your_jwt_secret_key_here
+JWT_EXPIRES_IN=7d
 
-See `backend/.env.example`.
+# Redis Config
+REDIS_URL=redis://127.0.0.1
+REDIS_PORT=6379
+REDIS_PASSWORD=
+CACHE_TTL=3600
 
-## Seeded Data Included
+# AI Configuration
+GEMINI_API_KEY=your_google_gemini_api_key
 
-The seed script creates sample:
-
-- students with profile preferences
-- universities across key study-abroad destinations
-- programs with tuition, intake, and IELTS requirements
-- applications with mixed statuses
-
-## Sample Seed Credentials
-
-After running the seed script, you can use:
-
-- `aarav@example.com` / `Candidate123!`
-- `sara@example.com` / `Candidate123!`
-- `counselor@example.com` / `Candidate123!`
-
-## Notes For Candidates
-
-- Some routes are intentionally incomplete
-- Some services are intentionally simple and should be improved
-- The codebase is structured to show expected engineering direction, not to be finished
-- You can refactor any part of the starter if your approach is better
-
-## Candidate-Friendly Deliverables
-
-Along with this README, a Word assignment brief is available at:
-
-- `docs/Waygood_Candidate_Assignment.docx`
-
-## Reference Context Used For This Assignment Design
-
-- Waygood website: student discovery, AI tools, calculators, and partner-university positioning
-- Job description: backend APIs, MongoDB aggregation, performance optimization, caching, and AI integration
+Project Assumptions
+Simplified User Registration: On the frontend UI, all user registrations currently default to the student role to keep the onboard workflow streamlined.
+Strict API Response Compatibility: Gemini AI integration was incorporated exclusively into the program recommendation module, ensuring complete backward compatibility with the exact JSON API contract provided in the original assignment specification.
