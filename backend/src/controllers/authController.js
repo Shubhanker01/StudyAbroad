@@ -4,7 +4,7 @@ const User = require("../models/Student");
 const apiResponse = require("../utils/apiResponse");
 
 function starterMessage(capability) {
-  return `${capability} is intentionally left incomplete for the candidate assignment.`;
+  return `${capability}`;
 }
 
 const register = asyncHandler(async (req, res) => {

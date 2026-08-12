@@ -1,12 +1,11 @@
 // middleware for validating request body using zod schemas
 
 const asyncHandler = require("../utils/asyncHandler");
-const { zodError } = require('zod');
+const { zodError, parseAsync } = require('zod');
 
-const validate = (schema) => {
+const validate = (schema, source = "body") => {
     return asyncHandler(async (req, res, next) => {
-        req.body = await schema.parseAsync(req.body)
-        // req.query = await schema.parseAsync(req.query)
+        req[source] = await schema.parseAsync(req[source])
         next();
     })
 }

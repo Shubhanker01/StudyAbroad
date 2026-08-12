@@ -6,6 +6,6 @@ const { listProgramsQuerySchema } = require("../schemas/programSchema");
 
 const router = express.Router();
 
-router.get("/", validate(listProgramsQuerySchema), listPrograms);
+router.get("/", validate(listProgramsQuerySchema, "query"), listPrograms);
 
 module.exports = router;

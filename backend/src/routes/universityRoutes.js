@@ -8,7 +8,7 @@ const {
 
 const router = express.Router();
 
-router.get("/", validate(listUniversitiesQuerySchema), listUniversities);
+router.get("/", validate(listUniversitiesQuerySchema, "query"), listUniversities);
 router.get("/popular", listPopularUniversities);
 
 module.exports = router;

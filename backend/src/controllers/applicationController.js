@@ -31,6 +31,9 @@ const listApplications = asyncHandler(async (req, res) => {
 const createApplication = asyncHandler(async (req, res) => {
   const { program, university, destinationCountry, intake, note } = req.body;
   const user = req.user;
+  if (user.role !== "student") {
+    throw new HttpError(403, "Only students can create applications");
+  }
   // find for duplicate application for the same program and university by the same student
   const existingApplication = await Application.findOne({
     student: user._id,
@@ -46,16 +49,32 @@ const createApplication = asyncHandler(async (req, res) => {
     university,
     destinationCountry,
     intake,
-    timeline: [{ status: "draft", note: note || "Application created!!" }]
+    timeline: [{ status: "submitted", note: note || "Application created!!" }]
   })
-  return res.status(201).json(new apiResponse(true, newApplication, "Application created successfully"));
+  return res.status(201).json(new apiResponse(201, newApplication, "Application created successfully"));
 });
 
 const updateApplicationStatus = asyncHandler(async (req, res) => {
-  throw new HttpError(
-    501,
-    "Application status transitions are intentionally incomplete for the assignment."
-  );
+  const { id } = req.params;
+  const { status, note } = req.body;
+  const user = req.user;
+  // 1. Role Authorization Check
+  if (user.role !== "counselor") {
+    throw new HttpError(403, "Only counsellors can update application statuses");
+  }
+  const application = await Application.findById(id);
+  if (!application) {
+    throw new HttpError(404, "Application not found");
+  }
+  application.timeline.push({
+    status,
+    note,
+    changedAt: new Date()
+  })
+  await application.save()
+  return res
+    .status(200)
+    .json(new apiResponse(200, application, "Application status updated successfully"));
 });
 
 module.exports = {
