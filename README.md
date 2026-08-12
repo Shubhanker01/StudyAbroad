@@ -47,10 +47,11 @@ npm install
 npm run dev
 
 ## Screenshots
-<img width="1366" height="768" alt="Screenshot (218)" src="https://github.com/user-attachments/assets/b0c272fa-4343-472c-88aa-63eb2efd7a9a" />
-<img width="1366" height="768" alt="Screenshot (217)" src="https://github.com/user-attachments/assets/7180a31d-eda9-4d74-b320-6ad9c027490d" />
-<img width="1366" height="768" alt="Screenshot (216)" src="https://github.com/user-attachments/assets/670d09b9-a934-4978-aa9e-2e227073ee11" />
-<img width="1366" height="768" alt="Screenshot (215)" src="https://github.com/user-attachments/assets/f187eb6c-af68-4913-b3ec-955f38a59c5c" />
+<img width="1366" height="768" alt="Screenshot (218)" src="https://github.com/user-attachments/assets/01f00443-3f65-4691-8634-0db855319b38" />
+<img width="1366" height="768" alt="Screenshot (217)" src="https://github.com/user-attachments/assets/e13d6cc7-e7f5-4f9a-b38f-f1846bb17558" />
+<img width="1366" height="768" alt="Screenshot (216)" src="https://github.com/user-attachments/assets/ac6de0cd-3a66-4598-b254-97bc625f868b" />
+<img width="1366" height="768" alt="Screenshot (215)" src="https://github.com/user-attachments/assets/2b68cd5a-28fc-4cba-ba10-10a7103c438a" />
+
 
 ## Environment Configuration
 PORT=5000
